@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Mary | Real Estate Virtual Assistant</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<style>
+/* BASE */
+body { background:#0f172a; color:#f8fafc; font-family:'Inter',sans-serif; scroll-behavior:smooth; overflow-x:hidden;}
+.accent{color:#22d3ee;}
+.section{padding:120px 10%;}
+.fade-up{opacity:0; transform:translateY(40px); transition:all 0.8s ease;}
+.fade-up.show{opacity:1; transform:translateY(0);}
+.nav-link{position:relative; transition:0.3s;}
+.nav-link::after{content:"";position:absolute;width:0%;height:2px;left:0;bottom:-5px;background:#22d3ee;transition:0.3s;}
+.nav-link:hover::after{width:100%;}
+
+/* CARD & TOOL */
+.card{background:#111827;border-radius:16px;transition:0.4s ease;}
+.card:hover{transform:translateY(-8px);}
+.tool{background:#111827;padding:12px 20px;border-radius:999px;font-size:14px;transition:0.3s;}
+.tool:hover{background:#22d3ee;color:black;}
+
+/* WORK HOVER EFFECT */
+.work-card{position:relative;overflow:hidden;border-radius:16px;}
+.work-card img{transition:0.4s ease;}
+.work-overlay{position:absolute;inset:0;background:rgba(15,23,42,0.85);display:flex;align-items:center;justify-content:center;opacity:0;transition:0.4s ease;}
+.work-card:hover img{transform:scale(1.05);}
+.work-card:hover .work-overlay{opacity:1;}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:9999;}
+.modal img{max-width:90%; max-height:90%; border-radius:12px;}
+
+/* PULSE BUTTON */
+.pulse-btn{animation:pulse 2s infinite;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+
+/* PARTICLE BACKGROUND */
+#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;}
+.star{position:absolute;background:white;border-radius:50%;opacity:0.8;animation:moveStar linear infinite;}
+@keyframes moveStar{0%{transform:translateY(0) translateX(0);opacity:0.8;}100%{transform:translateY(-1000px) translateX(500px);opacity:0;}}
+
+/* TYPING EFFECT */
+#typed-text{border-right:2px solid #22d3ee;white-space:nowrap;overflow:hidden;}
+
+/* FLOATING SOCIAL BUTTONS */
+@keyframes slideIn{0%{transform:translateX(-100px);opacity:0;}100%{transform:translateX(0);opacity:1;}}
+.floating-btn{animation:slideIn 1s forwards;}
+.floating-btn:nth-child(2){animation-delay:0.2s;}
+.floating-btn:nth-child(3){animation-delay:0.4s;}
+
+/* CONTACT FORM - GLASSMORPHISM */
+#contact-form{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius:20px;
+  padding:40px;
+  box-shadow: 0 8px 32px 0 rgba(34,211,238,0.25);
+  transition: all 0.3s ease;
+}
+#contact-form:hover{box-shadow: 0 12px 48px 0 rgba(34,211,238,0.35);}
+input, textarea{
+  background:rgba(255,255,255,0.1);
+  color:white;
+  border-radius:12px;
+  padding:12px;
+  width:100%;
+  margin-bottom:16px;
+  border:none;
+  transition: all 0.3s ease;
+}
+input::placeholder, textarea::placeholder{color:#9ca3af;}
+input:focus, textarea:focus{background:rgba(34,211,238,0.15); outline:none; transform:scale(1.02);}
+button.submit-btn{
+  background:#22d3ee;
+  color:black;
+  padding:12px 24px;
+  font-weight:bold;
+  border-radius:999px;
+  transition:0.3s;
+}
+button.submit-btn:hover{background:cyan;}
+.success-msg{color:#22d3ee; margin-top:12px; font-weight:bold; text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="flex justify-between items-center px-10 py-6 fixed w-full bg-[#0f172a] z-50">
+<h1 class="text-xl font-semibold">John Mary</h1>
+<div class="space-x-6 text-sm">
+<a href="#about" class="nav-link">About</a>
+<a href="#services" class="nav-link">Services</a>
+<a href="#work" class="nav-link">Work</a>
+<a href="#contact" class="nav-link">Contact</a>
+</div>
+</nav>
+
+<!-- FLOATING SOCIAL BUTTONS -->
+<div class="fixed left-5 top-1/3 flex flex-col space-y-4 z-50">
+  <a href="https://linkedin.com" target="_blank" class="bg-blue-700 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
+    <i class="fab fa-linkedin-in text-white text-lg"></i>
+  </a>
+  <a href="https://wa.me/2348135055712" target="_blank" class="bg-green-500 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
+    <i class="fab fa-whatsapp text-white text-lg"></i>
+  </a>
+  <a href="mailto:Marycool4hope@gmail.com" class="bg-red-500 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
+    <i class="fas fa-envelope text-white text-lg"></i>
+  </a>
+</div>
+
+<!-- HERO -->
+<section class="section flex flex-col justify-center min-h-screen relative overflow-hidden">
+<div id="hero-bg"></div>
+<h2 class="text-5xl md:text-6xl font-bold leading-tight fade-up">
+<span id="typed-text"></span>
+</h2>
+<p class="mt-8 max-w-xl text-gray-400 text-lg fade-up">
+Helping property owners maximize bookings, streamline operations, and deliver exceptional guest experiences.
+</p>
+<div class="mt-10 fade-up">
+<a href="#contact" class="pulse-btn bg-[#22d3ee] hover:bg-cyan-400 text-black px-8 py-3 rounded-full font-semibold transition">
+Let’s Work Together
+</a>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+<h3 class="text-3xl font-semibold mb-12 fade-up">About</h3>
+<div class="grid md:grid-cols-2 gap-16 items-center">
+<div class="fade-up">
+<p class="text-gray-400 leading-relaxed text-lg">
+Hello! My name is John Mary, and I am a dedicated and experienced virtual assistant specializing in real estate and short-term rentals. With a strong background in property management and customer service, I am adept at handling a wide array of tasks, from coordinating bookings and managing listings to communicating with guests and addressing their needs promptly. I excel at utilizing various software and platforms to maximize efficiency and ensure smooth operations.
+</p>
+<div class="mt-8">
+<a href="#contact" class="bg-[#22d3ee] hover:bg-cyan-400 text-black px-6 py-3 rounded-full font-semibold transition">
+Work With Me
+</a>
+</div>
+</div>
+<div class="fade-up">
+<img src="johnmary.jpg" alt="John Mary" class="rounded-2xl shadow-xl w-full object-cover">
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+<h3 class="text-3xl font-semibold mb-12 fade-up">What I Do</h3>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="card p-8 fade-up">Property Management</div>
+<div class="card p-8 fade-up">Guest Communication</div>
+<div class="card p-8 fade-up">Lead Generation</div>
+<div class="card p-8 fade-up">Calendar Management</div>
+<div class="card p-8 fade-up">Pricing Optimization</div>
+<div class="card p-8 fade-up">Admin & CRM</div>
+</div>
+</section>
+
+<!-- TOOLS -->
+<section class="section">
+<h3 class="text-3xl font-semibold mb-12 fade-up">Tools & Software</h3>
+<div class="flex flex-wrap gap-4 fade-up">
+<span class="tool">Airbnb</span>
+<span class="tool">Vrbo</span>
+<span class="tool">Hospitable</span>
+<span class="tool">Hostaway</span>
+<span class="tool">Guesty</span>
+<span class="tool">Booking.com</span>
+<span class="tool">Google Workspace</span>
+<span class="tool">Slack</span>
+<span class="tool">WhatsApp</span>
+</div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="section">
+<h3 class="text-3xl font-semibold mb-12 fade-up">Selected Work</h3>
+<div class="grid md:grid-cols-3 gap-10">
+<div class="work-card fade-up"><img src="sample1.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Lead Generation (Zillow/Trulia)</p></div></div>
+<div class="work-card fade-up"><img src="sample2.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Data Entry & CRM Management</p></div></div>
+<div class="work-card fade-up"><img src="sample3.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Rental Arbitrage Negotiation</p></div></div>
+<div class="work-card fade-up"><img src="sample4.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Guest Communication & Support</p></div></div>
+<div class="work-card fade-up"><img src="sample5.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Dynamic Pricing (Pricelabs)</p></div></div>
+<div class="work-card fade-up"><img src="sample6.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Automated Calendar Management (Hospitable)</p></div></div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section text-center">
+<h3 class="text-3xl font-semibold mb-8 fade-up">Send Me a Message</h3>
+<p class="text-gray-400 mb-6 fade-up">You can message me here, or via WhatsApp/email using the buttons on the left.</p>
+
+<form id="contact-form" class="max-w-xl mx-auto fade-up">
+<input type="text" name="from_name" placeholder="Your Name" required>
+<input type="email" name="from_email" placeholder="Your Email" required>
+<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+<button type="submit" class="submit-btn pulse-btn">Send Message</button>
+<p class="success-msg" id="success-msg"></p>
+</form>
+</section>
+
+<footer class="text-center py-10 text-gray-500">
+© 2026 John Mary — Real Estate Virtual Assistant
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal()"><img id="modalImg"></div>
+
+<script>
+/* Fade animation */
+const faders=document.querySelectorAll('.fade-up');
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("show");}});},{threshold:0.2});
+faders.forEach(el=>observer.observe(el));
+
+/* Image modal */
+function openModal(src){document.getElementById("modal").style.display="flex"; document.getElementById("modalImg").src=src;}
+function closeModal(){document.getElementById("modal").style.display="none";}
+
+/* Typing animation */
+const texts=["Real Estate Virtual Assistant","Airbnb Co-Host","Property Manager"];
+let count=0;let index=0;let currentText="";let isDeleting=false;const speed=120;
+function type(){ 
+const typedText=document.getElementById("typed-text");
+if(!typedText) return;
+const fullText=texts[count];
+if(isDeleting){currentText=fullText.substring(0,currentText.length-1);}
+else{currentText=fullText.substring(0,currentText.length+1);}
+typedText.innerHTML=currentText;
+if(!isDeleting && currentText===fullText){setTimeout(()=>isDeleting=true,1500);}
+else if(isDeleting && currentText===""){isDeleting=false;count=(count+1)%texts.length;}
+setTimeout(type,speed);
+}
+window.addEventListener("load",()=>{type();});
+
+/* Particle background */
+const heroBg=document.getElementById("hero-bg");
+for(let i=0;i<50;i++){
+  const star=document.createElement("div");
+  star.classList.add("star");
+  star.style.width=star.style.height=Math.random()*3+1+"px";
+  star.style.top=Math.random()*100+"%";
+  star.style.left=Math.random()*100+"%";
+  star.style.animationDuration=(Math.random()*5+5)+"s";
+  heroBg.appendChild(star);
+}
+
+/* Particles react to mouse */
+document.addEventListener("mousemove",e=>{
+  document.querySelectorAll(".star").forEach(star=>{
+    let speed=Math.random()*0.05;
+    star.style.transform=`translate(${(e.clientX-500)*speed}px, ${(e.clientY-300)*speed}px)`;
+  });
+});
+
+/* EmailJS placeholder */
+emailjs.init("YOUR_EMAILJS_USER_ID"); // replace later
+document.getElementById("contact-form").addEventListener("submit", function(e){
+  e.preventDefault();
+  // Use your EmailJS IDs here
+  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+  .then(()=>{document.getElementById("success-msg").textContent="Message sent successfully!"; this.reset();})
+  .catch(()=>{document.getElementById("success-msg").textContent="Oops! Something went wrong."});
+});
+</script>
+</body>
+</html>
