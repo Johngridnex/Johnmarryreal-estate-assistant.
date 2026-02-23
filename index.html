@@ -26,7 +26,13 @@ body { background:#0f172a; color:#f8fafc; font-family:'Inter',sans-serif; scroll
 
 /* WORK HOVER EFFECT */
 .work-card{position:relative;overflow:hidden;border-radius:16px;}
-.work-card img{transition:0.4s ease;}
+.work-card img{
+  transition:0.4s ease;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  aspect-ratio:16/9;
+}
 .work-overlay{position:absolute;inset:0;background:rgba(15,23,42,0.85);display:flex;align-items:center;justify-content:center;opacity:0;transition:0.4s ease;}
 .work-card:hover img{transform:scale(1.05);}
 .work-card:hover .work-overlay{opacity:1;}
@@ -52,6 +58,23 @@ body { background:#0f172a; color:#f8fafc; font-family:'Inter',sans-serif; scroll
 .floating-btn{animation:slideIn 1s forwards;}
 .floating-btn:nth-child(2){animation-delay:0.2s;}
 .floating-btn:nth-child(3){animation-delay:0.4s;}
+
+/* MOBILE SOCIAL BUTTONS */
+@media (max-width:768px){
+  .fixed.left-5.top-1/3{
+    flex-direction:row;
+    bottom:0;
+    left:0;
+    width:100%;
+    justify-content:center;
+    padding:10px 0;
+    position:fixed;
+    z-index:50;
+  }
+  .floating-btn{
+    margin:0 10px !important;
+  }
+}
 
 /* CONTACT FORM - GLASSMORPHISM */
 #contact-form{
@@ -85,6 +108,9 @@ button.submit-btn{
 }
 button.submit-btn:hover{background:cyan;}
 .success-msg{color:#22d3ee; margin-top:12px; font-weight:bold; text-align:center;}
+
+/* TESTIMONIALS */
+.testimonial-card{background:rgba(255,255,255,0.05); backdrop-filter:blur(10px); padding:24px; border-radius:16px; color:#f8fafc; font-style:italic; box-shadow:0 4px 16px rgba(34,211,238,0.25);}
 </style>
 </head>
 <body>
@@ -108,7 +134,7 @@ button.submit-btn:hover{background:cyan;}
   <a href="https://wa.me/2348135055712" target="_blank" class="bg-green-500 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
     <i class="fab fa-whatsapp text-white text-lg"></i>
   </a>
-  <a href="mailto:Marycool4hope@gmail.com" class="bg-red-500 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
+  <a href="mailto:youremail@example.com" class="bg-red-500 p-3 rounded-full hover:scale-110 transition flex items-center justify-center floating-btn">
     <i class="fas fa-envelope text-white text-lg"></i>
   </a>
 </div>
@@ -188,6 +214,20 @@ Work With Me
 <div class="work-card fade-up"><img src="sample4.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Guest Communication & Support</p></div></div>
 <div class="work-card fade-up"><img src="sample5.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Dynamic Pricing (Pricelabs)</p></div></div>
 <div class="work-card fade-up"><img src="sample6.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Automated Calendar Management (Hospitable)</p></div></div>
+<div class="work-card fade-up"><img src="sample7.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Market Research & Supplier Procurement</p></div></div>
+<div class="work-card fade-up"><img src="sample8.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Verified Airbnb Co-Host Status</p></div></div>
+<div class="work-card fade-up"><img src="sample9.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="accent font-semibold">Client Feedback & Performance Review</p></div></div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section">
+<h3 class="text-3xl font-semibold mb-12 fade-up text-center">Testimonials</h3>
+<div class="max-w-2xl mx-auto fade-up">
+<div class="testimonial-card">
+"From the moment we started working together, you've been incredibly reliable, detail-oriented, and proactive. Booking performance has improved. Honestly, hiring you as a co-host has been one of the best decisions I've made for my Airbnb."  
+— Verified Property Owner
+</div>
 </div>
 </section>
 
@@ -205,8 +245,12 @@ Work With Me
 </form>
 </section>
 
-<footer class="text-center py-10 text-gray-500">
-© 2026 John Mary — Real Estate Virtual Assistant
+<footer class="text-center py-10 text-gray-500 space-y-2">
+  © 2026 John Mary — Real Estate Virtual Assistant
+  <div class="flex justify-center mt-2 space-x-4">
+    <a href="https://linkedin.com" target="_blank" class="text-blue-700 hover:text-cyan-400"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://wa.me/2348135055712" target="_blank" class="text-green-500 hover:text-cyan-400"><i class="fab fa-whatsapp"></i></a>
+  </div>
 </footer>
 
 <!-- MODAL -->
@@ -269,4 +313,4 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
 });
 </script>
 </body>
-</html>
+  </html>
