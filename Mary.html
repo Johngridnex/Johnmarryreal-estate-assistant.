@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Mary | Real Estate Virtual Assistant</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* CUSTOM THEME COLORS */
+:root {
+    --accent: #22d3ee;
+    --accent-glow: rgba(34, 211, 238, 0.3);
+    --bg-dark: #020617;
+    --card-bg: rgba(15, 23, 42, 0.6);
+}
+
+body { 
+    background: var(--bg-dark); 
+    color: #f8fafc; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    scroll-behavior: smooth; 
+    overflow-x: hidden;
+}
+
+.accent { color: var(--accent); }
+
+/* IMPROVED FADE */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fade-up.show { opacity: 1; transform: translateY(0); }
+
+/* LUXURY GLASS CARDS */
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    transition: 0.4s ease;
+}
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow);
+}
+
+.tool {
+    background: rgba(30, 41, 59, 0.5);
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+.tool:hover { 
+    background: var(--accent); 
+    color: #020617; 
+    font-weight: bold;
+    transform: scale(1.05); 
+}
+
+/* PORTFOLIO GRID */
+.work-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.work-card img {
+    transition: 0.5s ease;
+    width: 100%; aspect-ratio: 16/9; object-fit: cover;
+}
+.work-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(2, 6, 23, 0.9), transparent);
+    display: flex; align-items: flex-end; padding: 20px;
+    opacity: 0; transition: 0.4s ease;
+}
+.work-card:hover img { transform: scale(1.08); }
+.work-card:hover .work-overlay { opacity: 1; }
+
+/* NAV REFINEMENT */
+nav {
+    backdrop-filter: blur(15px);
+    background: rgba(2, 6, 23, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* MODAL */
+.modal {
+    position: fixed; inset: 0;
+    background: rgba(2, 6, 23, 0.96);
+    display: none; align-items: center; justify-content: center;
+    z-index: 9999; backdrop-filter: blur(10px);
+}
+.modal img { max-width: 90%; max-height: 85%; border-radius: 12px; }
+
+/* STAR BACKGROUND */
+#hero-bg { position: absolute; inset: 0; z-index: -1; }
+.star { position: absolute; background: #fff; border-radius: 50%; pointer-events: none; }
+
+/* FLOATING BUTTONS */
+.floating-btn {
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.floating-btn:hover { transform: scale(1.15) rotate(5deg); }
+
+@media (max-width: 768px) {
+    .fixed-socials {
+        flex-direction: row !important;
+        top: auto !important; bottom: 0; left: 0 !important;
+        width: 100%; justify-content: center; padding: 15px; 
+        background: rgba(2, 6, 23, 0.9); gap: 20px;
+    }
+}
+</style>
+</head>
+<body>
+
+<nav class="flex justify-between items-center px-6 md:px-20 py-5 fixed w-full z-50">
+    <h1 class="text-xl font-bold tracking-tighter">JOHN <span class="accent">MARY</span></h1>
+    <div class="hidden md:flex space-x-10 text-xs font-bold uppercase tracking-widest">
+        <a href="#about" class="hover:text-cyan-400 transition">About</a>
+        <a href="#services" class="hover:text-cyan-400 transition">Services</a>
+        <a href="#work" class="hover:text-cyan-400 transition">Work</a>
+        <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
+    </div>
+</nav>
+
+<div class="fixed-socials fixed left-8 top-1/3 flex flex-col space-y-5 z-50">
+  <a href="https://www.linkedin.com/in/mary-john-b376a9318" target="_blank" class="bg-[#0077b5] p-3.5 rounded-2xl floating-btn shadow-lg">
+    <i class="fab fa-linkedin-in text-white text-xl"></i>
+  </a>
+  <a href="https://wa.me/2348135055712" target="_blank" class="bg-[#25d366] p-3.5 rounded-2xl floating-btn shadow-lg">
+    <i class="fab fa-whatsapp text-white text-xl"></i>
+  </a>
+  <a href="mailto:Marycool4hope@gmail.com" class="bg-[#ea4335] p-3.5 rounded-2xl floating-btn shadow-lg">
+    <i class="fas fa-envelope text-white text-xl"></i>
+  </a>
+</div>
+
+<section class="min-h-screen flex flex-col justify-center px-6 md:px-20 relative">
+    <div id="hero-bg"></div>
+    <div class="fade-up">
+        <h2 class="text-5xl md:text-8xl font-black leading-tight mb-8">
+            I am a <br><span id="typed-text" class="accent"></span>
+        </h2>
+        <p class="max-w-xl text-slate-400 text-lg md:text-xl leading-relaxed mb-10">
+            Helping property owners maximize bookings, streamline operations, and deliver exceptional guest experiences.
+        </p>
+        <a href="#contact" class="inline-block bg-[#22d3ee] text-[#020617] px-10 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all">
+            Let’s Work Together
+        </a>
+    </div>
+</section>
+
+<section id="about" class="py-24 px-6 md:px-20">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="fade-up">
+            <h3 class="text-sm font-black uppercase tracking-[0.3em] accent mb-4">Background</h3>
+            <h4 class="text-4xl font-bold mb-8">About Me</h4>
+            <p class="text-slate-400 leading-relaxed text-lg mb-8">
+                Hello! My name is John Mary, and I am a dedicated and experienced virtual assistant specializing in real estate and short-term rentals. With a strong background in property management and customer service, I am adept at handling a wide array of tasks, from coordinating bookings and managing listings to communicating with guests and addressing their needs promptly.
+            </p>
+            <a href="#contact" class="accent font-bold border-b-2 border-[#22d3ee] pb-1 hover:text-white transition">Hire Me</a>
+        </div>
+        <div class="fade-up">
+            <div class="relative">
+                <div class="absolute -inset-4 bg-cyan-500/10 rounded-3xl blur-2xl"></div>
+                <img src="johnmary.jpg" alt="John Mary" class="relative rounded-3xl shadow-2xl w-full object-cover">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-24 px-6 md:px-20 bg-slate-900/20">
+    <h3 class="text-center text-4xl font-bold mb-16 fade-up">Specialized Services</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="card p-10 fade-up">
+            <i class="fas fa-home accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Property Management</h5>
+            <p class="text-slate-400 text-sm">Full lifecycle management of your property listings.</p>
+        </div>
+        <div class="card p-10 fade-up">
+            <i class="fas fa-comments accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Guest Communication</h5>
+            <p class="text-slate-400 text-sm">24/7 prompt and professional guest support.</p>
+        </div>
+        <div class="card p-10 fade-up">
+            <i class="fas fa-search-dollar accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Lead Generation</h5>
+            <p class="text-slate-400 text-sm">Finding high-quality prospects for your business.</p>
+        </div>
+        <div class="card p-10 fade-up">
+            <i class="fas fa-calendar-check accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Calendar Management</h5>
+            <p class="text-slate-400 text-sm">Optimizing booking schedules across all platforms.</p>
+        </div>
+        <div class="card p-10 fade-up">
+            <i class="fas fa-chart-line accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Pricing Optimization</h5>
+            <p class="text-slate-400 text-sm">Maximize ROI through data-driven price adjustments.</p>
+        </div>
+        <div class="card p-10 fade-up">
+            <i class="fas fa-database accent text-4xl mb-8"></i>
+            <h5 class="text-xl font-bold mb-4">Admin & CRM</h5>
+            <p class="text-slate-400 text-sm">Keeping your data organized and your business running.</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 px-6 md:px-20 text-center">
+    <h3 class="text-3xl font-bold mb-12 fade-up">Tools & Software</h3>
+    <div class="flex flex-wrap justify-center gap-4 fade-up">
+        <span class="tool">Airbnb</span>
+        <span class="tool">Vrbo</span>
+        <span class="tool">Hospitable</span>
+        <span class="tool">Hostaway</span>
+        <span class="tool">Guesty</span>
+        <span class="tool">Booking.com</span>
+        <span class="tool">Google Workspace</span>
+        <span class="tool">Slack</span>
+        <span class="tool">WhatsApp</span>
+    </div>
+</section>
+
+<section id="work" class="py-24 px-6 md:px-20 bg-slate-900/20">
+    <h3 class="text-4xl font-bold mb-16 fade-up">Portfolio Highlights</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="work-card fade-up"><img src="sample1.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Lead Generation (Zillow/Trulia)</p></div></div>
+        <div class="work-card fade-up"><img src="sample2.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Data Entry & CRM</p></div></div>
+        <div class="work-card fade-up"><img src="sample3.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Arbitrage Negotiation</p></div></div>
+        <div class="work-card fade-up"><img src="sample4.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Guest Support</p></div></div>
+        <div class="work-card fade-up"><img src="sample5.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Dynamic Pricing</p></div></div>
+        <div class="work-card fade-up"><img src="sample6.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Calendar Automation</p></div></div>
+        <div class="work-card fade-up"><img src="sample7.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Market Research</p></div></div>
+        <div class="work-card fade-up"><img src="sample8.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Airbnb Co-Host Status</p></div></div>
+        <div class="work-card fade-up"><img src="sample9.jpg" onclick="openModal(this.src)"><div class="work-overlay"><p class="font-bold text-sm">Performance Review</p></div></div>
+    </div>
+</section>
+
+<section class="py-24 px-6 md:px-20">
+    <div class="max-w-4xl mx-auto fade-up">
+        <div class="card p-12 text-center relative">
+            <i class="fas fa-quote-left text-6xl absolute top-6 left-10 opacity-10 accent"></i>
+            <p class="text-xl italic leading-relaxed text-slate-300">
+                "From the moment we started working together, you've been incredibly reliable, detail-oriented, and proactive. Booking performance has improved. Honestly, hiring you as a co-host has been one of the best decisions I've made for my Airbnb."  
+            </p>
+            <div class="mt-8 font-bold text-white">— Verified Property Owner</div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="py-24 px-6 md:px-20 bg-slate-950">
+    <div class="max-w-2xl mx-auto text-center fade-up">
+        <h3 class="text-4xl font-bold mb-6">Get In Touch</h3>
+        <p class="text-slate-400 mb-12">Have a project in mind? Let's discuss how I can help your business grow.</p>
+        
+        <form id="contact-form" class="text-left space-y-5 card p-8 md:p-12">
+            <div>
+                <label class="text-xs font-bold uppercase tracking-widest text-slate-500 block mb-2 ml-1">Name</label>
+                <input type="text" name="from_name" placeholder="John Doe" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400 transition" required>
+            </div>
+            <div>
+                <label class="text-xs font-bold uppercase tracking-widest text-slate-500 block mb-2 ml-1">Email</label>
+                <input type="email" name="from_email" placeholder="john@example.com" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400 transition" required>
+            </div>
+            <div>
+                <label class="text-xs font-bold uppercase tracking-widest text-slate-500 block mb-2 ml-1">Message</label>
+                <textarea name="message" rows="5" placeholder="How can I help you?" class="w-full bg-slate-900 border border-white/10 rounded-xl p-4 outline-none focus:border-cyan-400 transition" required></textarea>
+            </div>
+            <button type="submit" class="w-full bg-[#22d3ee] text-[#020617] font-black py-5 rounded-xl uppercase tracking-widest hover:shadow-lg hover:shadow-cyan-500/20 transition-all">Send Message</button>
+            <p id="success-msg" class="text-center font-bold accent"></p>
+        </form>
+    </div>
+</section>
+
+<footer class="py-12 text-center border-t border-white/5 text-slate-600 text-sm">
+    <p>© 2026 John Mary • Real Estate Virtual Assistant</p>
+</footer>
+
+<div class="modal" id="modal" onclick="closeModal()"><img id="modalImg"></div>
+
+<script>
+/* Fade */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add("show"); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* Modal */
+function openModal(src){ document.getElementById("modal").style.display="flex"; document.getElementById("modalImg").src=src; }
+function closeModal(){ document.getElementById("modal").style.display="none"; }
+
+/* Typing */
+const texts=["Real Estate Expert","Airbnb Co-Host","Property Manager"];
+let count=0, index=0, currentText="", isDeleting=false;
+function type(){ 
+    const typedText=document.getElementById("typed-text");
+    if(!typedText) return;
+    const fullText=texts[count];
+    currentText = isDeleting ? fullText.substring(0, currentText.length-1) : fullText.substring(0, currentText.length+1);
+    typedText.innerHTML = currentText;
+    let speed = isDeleting ? 60 : 120;
+    if(!isDeleting && currentText===fullText){ speed = 2500; isDeleting=true; }
+    else if(isDeleting && currentText===""){ isDeleting=false; count=(count+1)%texts.length; speed=500; }
+    setTimeout(type, speed);
+}
+window.onload = type;
+
+/* Background Stars */
+const heroBg=document.getElementById("hero-bg");
+for(let i=0;i<100;i++){
+    const star=document.createElement("div");
+    star.className="star";
+    const size = Math.random()*2;
+    star.style.width=star.style.height=size+"px";
+    star.style.top=Math.random()*100+"%";
+    star.style.left=Math.random()*100+"%";
+    star.style.opacity = Math.random()*0.4;
+    heroBg.appendChild(star);
+}
+
+/* Mouse Move Stars */
+document.addEventListener("mousemove",e=>{
+    document.querySelectorAll(".star").forEach(star=>{
+        let speed = star.offsetWidth * 0.03;
+        star.style.transform=`translate(${(e.clientX-window.innerWidth/2)*speed}px, ${(e.clientY-window.innerHeight/2)*speed}px)`;
+    });
+});
+
+/* EmailJS placeholder */
+emailjs.init("YOUR_EMAILJS_USER_ID");
+document.getElementById("contact-form").addEventListener("submit", function(e){
+    e.preventDefault();
+    const btn = this.querySelector('button');
+    btn.innerText = "Sending...";
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+    .then(()=>{
+        document.getElementById("success-msg").textContent="✓ Message sent!";
+        this.reset();
+        btn.innerText = "Send Message";
+    })
+    .catch(()=>{
+        document.getElementById("success-msg").textContent="Error. Please try again.";
+        btn.innerText = "Send Message";
+    });
+});
+</script>
+</body>
+</html>
